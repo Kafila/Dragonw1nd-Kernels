@@ -661,6 +661,14 @@ runs:
 
         echo "duration=${SECONDS}" >> "${GITHUB_OUTPUT}"
 
+    - name: Trim 16.0.5 module lists
+      shell: bash
+      run: |
+        set -euo pipefail
+        for f in $(find "${KERNEL_KIT}/device/salami-oos16" -type f \( -name '*.include' -o -name '*.load' -o -name '*.load.recovery' \)); do
+          sed -i '/oplus_bsp_smart_freq\.ko/d; /oplus_bsp_close_loop\.ko/d; /oplus_sched\.ko/d' "$f"
+        done
+
     - name: Cleanup old build cache
       shell: bash
       run: |
@@ -687,6 +695,9 @@ runs:
         set -euo pipefail
         echo "::group::Creating AK3 zip..."
         IMAGE="${DIST_DIR}/Image"
+        if [[ ! -f "${IMAGE}" ]]; then
+          IMAGE=$(find "${OUT_DIR}/msm-kernel" "${OUT_DIR}/gki-kernel" -path '*/arch/arm64/boot/Image' -print -quit 2>/dev/null || true)
+        fi
         if [[ ! -f "${IMAGE}" ]]; then
           echo "ERROR: Built Image not found"
           exit 1
