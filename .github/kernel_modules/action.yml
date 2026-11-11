@@ -128,6 +128,7 @@ runs:
         cd "${ROOT_DIR}/${KERNEL_DIR}/drivers/net/wireless/realtek/"
         rm -rf rtw88
         git clone https://github.com/lwfinger/rtw88.git
+        git -C rtw88 checkout a56bcd26e770257612a0803249cbd4095fc6feca
         # 5.15.197: keep USB/PCI rtw88 only; SDIO variants fail on this tree
         sed -i -E '/^obj-m[[:space:]]*\+=[[:space:]]*rtw_(8723bs|8723cs|8723ds|8821cs|8822bs|8822cs|sdio)\.o$/d; /^rtw_(8723bs|8723cs|8723ds|8821cs|8822bs|8822cs|sdio)-objs/d' rtw88/Makefile
         sed -i 's/$(CONFIG_RTW88)/m/g' Makefile
