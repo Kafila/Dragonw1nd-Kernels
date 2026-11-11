@@ -518,6 +518,7 @@ runs:
 
           MAKE_GOALS="dtbs_install"
           INSTALL_DTBS_PATH="${OUT_DIR}/msm-kernel/dtb_staging"
+          mkdir -p "${INSTALL_DTBS_PATH}/vendor/oplus" "${INSTALL_DTBS_PATH}/vendor/qcom"
           
           echo " Installing dtbs to staging directory"
           set -x
