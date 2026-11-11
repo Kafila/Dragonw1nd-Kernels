@@ -367,6 +367,7 @@ runs:
             HOSTCC="ccache clang"
             HOSTCXX="ccache clang++"
             CC="ccache clang"
+            KCFLAGS="-Wno-error=macro-redefined"
           )
         fi
 
