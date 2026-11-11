@@ -16,6 +16,7 @@ runs:
         fi
         cd "${ROOT_DIR}/${KERNEL_DIR}"
         touch arch/arm64/configs/modules.config
+        echo "CONFIG_SECTION_MISMATCH_WARN_ONLY=y" >> arch/arm64/configs/modules.config
 
     - name: Add nethunter specfic drivers already present in kernel to be built as modules
       id: config_features
